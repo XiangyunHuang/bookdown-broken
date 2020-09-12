@@ -51,12 +51,17 @@ jobs:
           sessioninfo::session_info(pkgs, include_base = TRUE)
         shell: Rscript {0}
 
+      - name: Install TinyTeX
+        run: |
+          Rscript -e 'install.packages("tinytex"); tinytex:::install_prebuilt(); tinytex::tinytex_root()'
+          Rscript -e 'tinytex::tlmgr_install(readLines("texlive.txt"))'
+
       - name: Install packages
         run: |
           R -e 'install.packages("renv")'
           R -e 'renv::restore()'
       - name: Build site
-        run: Rscript -e 'bookdown::render_book("index.Rmd", quiet = TRUE)'
+        run: Rscript -e 'bookdown::render_book("index.Rmd", "all")'
 
       - name: Install npm
         uses: actions/setup-node@v1
