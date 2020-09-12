@@ -53,6 +53,7 @@ jobs:
 
       - name: Install TinyTeX
         run: |
+          export PATH="$HOME/bin:$PATH"
           Rscript -e 'install.packages("tinytex"); tinytex:::install_prebuilt(); tinytex::tinytex_root()'
           Rscript -e 'tinytex::tlmgr_install(readLines("texlive.txt"))'
 
