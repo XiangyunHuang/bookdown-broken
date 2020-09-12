@@ -64,6 +64,12 @@ jobs:
       - name: Build site
         run: Rscript -e 'bookdown::render_book("index.Rmd", "all")'
 
+      - uses: actions/upload-artifact@v2
+        if: success()
+        with:
+          name: Upload Book
+          path: _book
+
       - name: Install npm
         uses: actions/setup-node@v1
 
