@@ -1,0 +1,38 @@
+--- 
+title: "Tidyverse 食谱"
+author: "黄湘云"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+documentclass: book
+bibliography: [book.bib, packages.bib]
+biblio-style: apalike
+link-citations: yes
+description: "tidyverse 实战经验总结."
+---
+
+# 欢迎 {#welcome .unnumbered}
+
+
+
+## 软件信息 {#sessioninfo .unnumbered}
+
+```{r}
+xfun::session_info(
+  packages =
+    c(
+      "knitr", "rmarkdown", "bookdown",
+      "ggplot2", "dplyr", "tidyverse"
+    ),
+  dependencies = FALSE
+)
+```
+
+```{r include=FALSE,cache=FALSE}
+# automatically create a bib database for R packages
+knitr::write_bib(c(
+  .packages(), 'bookdown', 'knitr', 'rmarkdown', 'tidyverse'
+), 'packages.bib')
+```
+
+
+

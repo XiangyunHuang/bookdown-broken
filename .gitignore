@@ -1,0 +1,8 @@
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+
+packages.bib
+tidyverse-cookbook.rds
+_book
