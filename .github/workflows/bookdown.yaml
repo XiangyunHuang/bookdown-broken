@@ -46,9 +46,10 @@ jobs:
       - name: Session info
         run: |
           options(width = 100)
-          install.packages("sessioninfo")
+          install.packages(c("sessioninfo", "webshot", "tinytex"))
           pkgs <- installed.packages()[, "Package"]
           sessioninfo::session_info(pkgs, include_base = TRUE)
+          webshot::is_phantomjs_installed()
         shell: Rscript {0}
 
       - name: Install TinyTeX
@@ -57,6 +58,7 @@ jobs:
       - name: Install LaTeX Packages
         run: |
           tinytex::tlmgr_install(readLines("texlive.txt"))
+          tinytex:::is_tinytex()
         shell: Rscript {0}
 
       - name: Install packages
