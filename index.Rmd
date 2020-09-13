@@ -39,9 +39,11 @@ Book in early development. Planned release in 202X.
 
 ```{r}
 xfun::session_info(packages = c(
-  "knitr", "rmarkdown", "bookdown",
+  "knitr", "rmarkdown", "bookdown", "equatiomatic",
+  "data.table", "DT", "kableExtra", "reactable",
+  "patchwork", "plotly", "shiny",
   "ggplot2", "dplyr", "tidyverse"
-), dependencies = FALSE)
+), dependencies = TRUE)
 ```
 
 

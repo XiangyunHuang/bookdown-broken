@@ -5,7 +5,16 @@ Version: 0.0.1
 Depends: R (>= 4.0.2)
 Imports: 
   bookdown (>= 0.20), 
+  data.table (>= 1.13.0),
+  DT (>= 0.15),
+  equatiomatic (>= 0.1.0),
+  kableExtra (>= 1.2.1),
   knitr (>= 1.30),
+  palmerpenguins (>= 0.1.0),
+  patchwork (>= 1.0.1),
+  plotly (>= 4.9.2.1),
+  shiny (>= 1.5.0),
+  reactable (>= 0.2.1),
   rmarkdown (>= 2.4),
   tidyverse (>= 1.3.0)
 SystemRequirements: pandoc (>= 2.10.1) - https://pandoc.org
