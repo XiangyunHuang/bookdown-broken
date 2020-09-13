@@ -18,12 +18,6 @@ bookdown::pdf_book:
     subfig:
      - lotdepth=2
      - lofdepth=2
-    sourcecodepro:
-     - scale=0.85
-    sourceserifpro:
-     - rmdefault
-    sourcesanspro:
-     - sfdefault
   pandoc_args: ["--top-level-division=chapter", "--lua-filter=sidebar.lua", "--wrap=none"]
   quote_footer: ["\\hspace*{\\fill} ", ""]
 bookdown::epub_book:
