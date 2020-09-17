@@ -45,6 +45,7 @@ xfun::session_info(packages = c(
   "knitr", "rmarkdown", "bookdown", "equatiomatic",
   "data.table", "DT", "kableExtra", "reactable",
   "patchwork", "plotly", "shiny",
+  "RMariaDB", "odbc",
   "ggplot2", "dplyr", "tidyverse"
 ), dependencies = TRUE)
 ```
