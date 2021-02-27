@@ -72,20 +72,29 @@ jobs:
       - name: Build site
         run: Rscript -e 'bookdown::render_book("index.Rmd", "all")'
 
-      - uses: actions/upload-artifact@v2
-        if: success()
+      - name: Install npm
+        uses: actions/setup-node@v1
+
+      - name: Upload book folder for debug
+        if: failure()
+        uses: actions/upload-artifact@main
         with:
           name: Upload Book
           path: _book
 
-      - name: Install npm
-        uses: actions/setup-node@v1
-
       - name: Deploy to Netlify
-        # NETLIFY_AUTH_TOKEN and NETLIFY_SITE_ID added in the repo's secrets
+        if: contains(env.isExtPR, 'false')
+        id: netlify-deploy
+        uses: nwtgck/actions-netlify@v1.1
+        with:
+          publish-dir: './_book'
+          production-branch: devel
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          deploy-message:
+            'Deploy from GHA: ${{ github.event.pull_request.title || github.event.head_commit.message }} (${{ github.sha }})'
+          enable-pull-request-comment: true
+          enable-commit-comment: true
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-        run: |
-          npm install netlify-cli -g
-          netlify deploy --prod --dir _book
+        timeout-minutes: 10
