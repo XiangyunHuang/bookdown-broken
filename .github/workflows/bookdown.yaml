@@ -62,8 +62,13 @@ jobs:
 
       - name: Install packages
         run: |
-          R -e 'install.packages("renv")'
-          R -e 'renv::restore()'
+          install.packages("renv")
+          renv::restore()
+          library(showtext)
+          font_install(source_han_serif(), quiet = TRUE)
+          font_install(source_han_sans(), quiet = TRUE)
+        shell: Rscript {0}
+
       - name: Build site
         run: Rscript -e 'bookdown::render_book("index.Rmd", "all")'
 

@@ -3,11 +3,12 @@ title: "Tidyverse 食谱"
 author: "黄湘云"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
-documentclass: ctexbook
+documentclass: book
 papersize: b5
 fontsize: 10pt
 graphics: yes
 colorlinks: yes
+mathspec: yes
 lot: yes
 lof: yes
 geometry:
@@ -15,7 +16,7 @@ geometry:
   - bmargin=2.5cm
   - lmargin=3.0cm
   - rmargin=2.0cm
-classoption: "UTF8,twoside,openany,fontset=fandol,zihao=false,table"
+classoption: "UTF8,twoside,openany,table"
 bibliography: 
   - book.bib
   - packages.bib
@@ -45,13 +46,28 @@ xfun::session_info(packages = c(
   "knitr", "rmarkdown", "bookdown", "equatiomatic",
   "data.table", "DT", "kableExtra", "reactable",
   "patchwork", "plotly", "shiny",
-  "RMariaDB", "odbc",
+  "RMariaDB", "odbc", "RSQLite",
   "ggplot2", "dplyr", "tidyverse"
 ), dependencies = TRUE)
 ```
 
 
-
+```{r showtext, fig.cap="showtext 包处理图里的中文", fig.showtext=TRUE, out.width="75%"}
+library(ggplot2)
+ggplot(iris, aes(Sepal.Length, Sepal.Width)) +
+  geom_point(aes(colour = Species)) +
+  scale_colour_brewer(palette = "Set1") +
+  labs(
+    title = "鸢尾花数据的散点图",
+    x = "萼片长度", y = "萼片宽度", colour = "鸢尾花类别",
+    caption = "鸢尾花数据集最早见于 Edgar Anderson (1935) "
+  ) +
+  theme(
+    title = element_text(family = "source-han-sans-cn"),
+    axis.title = element_text(family = "source-han-serif-cn"),
+    legend.title = element_text(family = "source-han-serif-cn")
+  )
+```
 
 
 ```{r include=FALSE,cache=FALSE}
@@ -60,6 +76,3 @@ knitr::write_bib(c(
   .packages(), 'bookdown', 'knitr', 'rmarkdown', 'tidyverse', 'shiny'
 ), 'packages.bib')
 ```
-
-
-
