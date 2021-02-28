@@ -42,7 +42,7 @@ jobs:
 
       - name: Install Python packages
         run: |
-          pip install -r requirements.txt
+          pip3 install -r requirements.txt
           conda env export
 
       - name: Install Pandoc
