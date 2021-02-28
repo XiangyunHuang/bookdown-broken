@@ -7,21 +7,38 @@ on:
 
 name: bookdown
 
+env:
+  isExtPR: ${{ github.event.pull_request.head.repo.fork == true }}
+
 jobs:
   build:
-    runs-on: macOS-latest
+    if: "!contains(github.event.head_commit.message, '[skip ci]')"
+    runs-on: ${{ matrix.config.os }}
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+    name: ${{ matrix.config.os }} (${{ matrix.config.r }})
+    strategy:
+      matrix:
+        config:
+          - {os: macOS-latest, r: '4.0.4'}
+
     steps:
       - name: Checkout repo
         uses: actions/checkout@v2
 
       - name: Setup R
         uses: r-lib/actions/setup-r@master
+        with:
+          r-version: ${{ matrix.config.r }}
 
-      - name: Install pandoc
+      - name: Install Pandoc
+        uses: r-lib/actions/setup-pandoc@v1
+        with:
+          pandoc-version: '2.11.4'
+
+      - name: Install ghostscript and Others
         run: |
-          brew install pandoc
+          brew install ghostcript
       - name: Cache R packages
         uses: actions/cache@v2
         with:
@@ -88,7 +105,7 @@ jobs:
         uses: nwtgck/actions-netlify@v1.1
         with:
           publish-dir: './_book'
-          production-branch: devel
+          production-branch: master
           github-token: ${{ secrets.GITHUB_TOKEN }}
           deploy-message:
             'Deploy from GHA: ${{ github.event.pull_request.title || github.event.head_commit.message }} (${{ github.sha }})'

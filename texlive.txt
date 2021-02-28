@@ -12,6 +12,7 @@ ctablestack
 ctex
 environ
 everyhook
+everysel
 fandol
 fonts-tlwg
 fp
@@ -22,10 +23,12 @@ luatexbase
 luatexja
 makeindex
 makecell
+mathspec
 mptopdf
 ms
 multirow
 norasi-c90
+pdfcrop
 pdflscape
 pgf
 platex
@@ -33,6 +36,7 @@ platex-tools
 ptex
 ptex-base
 ptex-fonts
+rsfs
 sourcecodepro
 svn-prov
 tabu
