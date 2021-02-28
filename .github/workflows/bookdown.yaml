@@ -41,6 +41,7 @@ jobs:
           activate-environment: 'r-reticulate'
 
       - name: Install Python packages
+        shell: bash -l {0}
         run: |
           conda activate r-reticulate
           pip3 install -r requirements.txt
