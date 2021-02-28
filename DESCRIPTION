@@ -15,6 +15,7 @@ Imports:
   plotly (>= 4.9.3),
   shiny (>= 1.6.0),
   reactable (>= 0.2.3),
+  reticulate (>= 1.18),
   rmarkdown (>= 2.7),
   RMariaDB (>= 1.1.0),
   RSQLite (>= 2.2.3),

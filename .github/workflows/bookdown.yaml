@@ -14,13 +14,15 @@ jobs:
   build:
     if: "!contains(github.event.head_commit.message, '[skip ci]')"
     runs-on: ${{ matrix.config.os }}
-    env:
-      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
-    name: ${{ matrix.config.os }} (${{ matrix.config.r }})
+
+    name: ${{ matrix.config.os }} (${{ matrix.config.r }}) (${{ matrix.config.python }})
     strategy:
       matrix:
         config:
-          - {os: macOS-latest, r: '4.0.4'}
+          - {os: macOS-latest, r: '4.0.4', python: '3.8'}
+
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
 
     steps:
       - name: Checkout repo
@@ -31,6 +33,18 @@ jobs:
         with:
           r-version: ${{ matrix.config.r }}
 
+      - uses: conda-incubator/setup-miniconda@v2
+        with:
+          auto-update-conda: true
+          python-version: ${{ matrix.config.python }}
+          miniconda-version: "latest"
+          activate-environment: 'r-reticulate'
+
+      - name: Install Python packages
+        run: |
+          pip install -r requirements.txt
+          conda env export
+
       - name: Install Pandoc
         uses: r-lib/actions/setup-pandoc@v1
         with:
@@ -39,6 +53,7 @@ jobs:
       - name: Install ghostscript and Others
         run: |
           brew install ghostscript
+
       - name: Cache R packages
         uses: actions/cache@v2
         with:
