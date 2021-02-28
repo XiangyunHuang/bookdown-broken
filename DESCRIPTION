@@ -10,6 +10,7 @@ Imports:
   equatiomatic (>= 0.2.0),
   kableExtra (>= 1.3.4),
   knitr (>= 1.31),
+  magick (>= 2.6.0),
   odbc (>= 1.3.0),
   patchwork (>= 1.0.1),
   plotly (>= 4.9.3),
@@ -20,5 +21,6 @@ Imports:
   RMariaDB (>= 1.1.0),
   RSQLite (>= 2.2.3),
   showtext (>= 0.9.2),
-  tidyverse (>= 1.3.0)
+  tidyverse (>= 1.3.0),
+  tikzDevice (>= 0.12.3.1)
 SystemRequirements: pandoc (>= 2.11.4) - https://pandoc.org

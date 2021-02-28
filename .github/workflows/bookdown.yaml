@@ -15,7 +15,7 @@ jobs:
     if: "!contains(github.event.head_commit.message, '[skip ci]')"
     runs-on: ${{ matrix.config.os }}
 
-    name: ${{ matrix.config.os }} (${{ matrix.config.r }}) (${{ matrix.config.python }})
+    name: ${{ matrix.config.os }} (r-${{ matrix.config.r }}) (python-${{ matrix.config.python }})
     strategy:
       matrix:
         config:
@@ -42,6 +42,7 @@ jobs:
 
       - name: Install Python packages
         run: |
+          conda activate r-reticulate
           pip3 install -r requirements.txt
           conda env export
 
@@ -52,7 +53,7 @@ jobs:
 
       - name: Install ghostscript and Others
         run: |
-          brew install ghostscript
+          brew install ghostscript imagemagick@6
 
       - name: Cache R packages
         uses: actions/cache@v2
