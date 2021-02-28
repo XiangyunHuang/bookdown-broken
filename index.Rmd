@@ -40,6 +40,7 @@ Book in early development. Planned release in 202X.
 tidyverse [@tidyverse2019] 已经形成一个强大的生态环境，神挡杀神，佛挡杀佛！ rmarkdown [@rmarkdown2018] 也已经形成一个闭环的生态环境，覆盖写报告、论文、简历、书籍、海报等，也可以做网站、卡片等。 shiny [@R-shiny] 同样形成了一个强大的生态，不仅可以满足学术交流和教育教学的需要，还可以打造企业级报表平台和快速迭代产品原型设计的工具。
 
 ## 软件信息 {#sessioninfo .unnumbered}
+\index{showtext}
 
 ```{r}
 xfun::session_info(packages = c(
@@ -51,6 +52,7 @@ xfun::session_info(packages = c(
 ), dependencies = TRUE)
 ```
 
+数学字体 $\alpha, \beta, \boldsymbol{\alpha}, \bm{\beta}$ 和 $\mathbb{A},\mathsf{A},\mathcal{A},\mathscr{A}$
 
 ```{r showtext, fig.cap="showtext 包处理图里的中文", fig.showtext=TRUE, out.width="75%"}
 library(ggplot2)

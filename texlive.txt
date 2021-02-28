@@ -16,6 +16,7 @@ fandol
 fonts-tlwg
 fp
 garuda-c90
+jknapltx
 latex-base-dev
 luatexbase
 luatexja
