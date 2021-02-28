@@ -38,7 +38,7 @@ jobs:
 
       - name: Install ghostscript and Others
         run: |
-          brew install ghostcript
+          brew install ghostscript
       - name: Cache R packages
         uses: actions/cache@v2
         with:
