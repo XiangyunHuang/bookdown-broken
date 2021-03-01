@@ -1,5 +1,6 @@
 adobemapping
 alegreya
+amsfonts
 amscls
 arphic
 beamer
@@ -41,6 +42,7 @@ psnfss
 ptex
 ptex-base
 ptex-fonts
+preview
 rsfs
 sourcecodepro
 svn-prov

@@ -14,7 +14,6 @@ jobs:
   build:
     if: "!contains(github.event.head_commit.message, '[skip ci]')"
     runs-on: ${{ matrix.config.os }}
-
     name: ${{ matrix.config.os }} (r-${{ matrix.config.r }}) (python-${{ matrix.config.python }})
     strategy:
       matrix:
@@ -33,6 +32,15 @@ jobs:
         with:
           r-version: ${{ matrix.config.r }}
 
+      - name: Cache conda
+        uses: actions/cache@v2
+        env:
+          # Increase this value to reset cache if environment.yml has not changed
+          CACHE_NUMBER: 0
+        with:
+          path: ~/conda_pkgs_dir
+          key: conda-${{ env.CACHE_NUMBER }}-${{ hashFiles('environment.yml') }}
+          
       - uses: conda-incubator/setup-miniconda@v2
         with:
           auto-update-conda: true
@@ -40,7 +48,7 @@ jobs:
           miniconda-version: "latest"
           activate-environment: 'r-reticulate'
           environment-file: environment.yml
-
+          use-only-tar-bz2: true # IMPORTANT: This needs to be set for caching to work properly!
 
       - name: Install Pandoc
         uses: r-lib/actions/setup-pandoc@v1
@@ -60,7 +68,7 @@ jobs:
           restore-keys: r-
 
       - name: Cache bookdown results
-        uses: actions/cache@v1
+        uses: actions/cache@v2
         with:
           path: _bookdown_files
           key: bookdown-${{ hashFiles('**/*Rmd') }}
