@@ -19,7 +19,7 @@ jobs:
     strategy:
       matrix:
         config:
-          - {os: macOS-latest, r: '4.0.4', python: '3.8'}
+          - {os: macos-10.15, r: '4.0.4', python: '3.8'}
 
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
@@ -39,13 +39,8 @@ jobs:
           python-version: ${{ matrix.config.python }}
           miniconda-version: "latest"
           activate-environment: 'r-reticulate'
+          environment-file: environment.yml
 
-      - name: Install Python packages
-        shell: bash -l {0}
-        run: |
-          conda activate r-reticulate
-          pip3 install -r requirements.txt
-          conda env export
 
       - name: Install Pandoc
         uses: r-lib/actions/setup-pandoc@v1
@@ -54,6 +49,7 @@ jobs:
 
       - name: Install ghostscript and Others
         run: |
+          brew upgrade
           brew install ghostscript imagemagick@6
 
       - name: Cache R packages
