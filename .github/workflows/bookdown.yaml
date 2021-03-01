@@ -58,7 +58,7 @@ jobs:
       - name: Install ghostscript and Others
         run: |
           brew upgrade
-          brew install ghostscript imagemagick@6
+          brew install ghostscript imagemagick@6 poppler
 
       - name: Cache R packages
         uses: actions/cache@v2
