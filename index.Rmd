@@ -51,7 +51,7 @@ $$
 \index{ggplot2}
 \index{showtext}
 
-```{r showtext, fig.cap="showtext 包处理图里的中文", fig.showtext=TRUE, out.width="75%"}
+```{r showtext, fig.cap="showtext 包处理图里的中文", fig.showtext=TRUE, out.width="75%",fig.width=4,fig.height=3}
 library(ggplot2)
 ggplot(iris, aes(Sepal.Length, Sepal.Width)) +
   geom_point(aes(colour = Species)) +
@@ -110,7 +110,7 @@ reticulate::use_condaenv("r-reticulate", required = TRUE)
 
 启用 `required = TRUE` 是让 **reticulate** 使用指定的 Python 虚拟环境，而不是让它漫无目的地到处找
 
-```{python matplotlib, fig.cap = "matplotlib 示例", dev = ifelse(knitr::is_html_output(), 'svg', ifelse(knitr::is_latex_output(), 'pdf', 'png')), out.width='75%', pdfcrop = FALSE}
+```{python matplotlib, fig.cap = "matplotlib 示例", dev = ifelse(knitr::is_html_output(), 'svg', ifelse(knitr::is_latex_output(), 'pdf', 'png')), out.width='75%', pdfcrop = FALSE,fig.width=4,fig.height=3}
 import matplotlib.pyplot as plt
 from matplotlib import rcParams
 # 其它可配置选项见 rcParams.keys()
