@@ -47,7 +47,7 @@ jobs:
           python-version: ${{ matrix.config.python }}
           miniconda-version: "latest"
           activate-environment: 'r-reticulate'
-          channels: defaults
+          channels: conda-forge
           channel-priority: flexible
           show-channel-urls: true
           environment-file: environment.yml

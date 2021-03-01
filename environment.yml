@@ -1,8 +1,10 @@
 name: r-reticulate
 channels:
+  - conda-forge
   - defaults
 dependencies:
   - python=3.8.8=h88f2d9e_4
+  - pip==20.2.4=py38hecd8cb5_0
   - pip:
     - matplotlib>=3.3.4
     - numpy>=1.19.5
