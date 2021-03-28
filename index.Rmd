@@ -43,8 +43,7 @@ Book in early development. Planned release in 202X.
 tidyverse [@tidyverse2019] 已经形成一个强大的生态环境，神挡杀神，佛挡杀佛！ rmarkdown [@rmarkdown2018] 也已经形成一个闭环的生态环境，覆盖写报告、论文、简历、书籍、海报等，也可以做网站、卡片等。 shiny [@R-shiny] 同样形成了一个强大的生态，不仅可以满足学术交流和教育教学的需要，还可以打造企业级报表平台和快速迭代产品原型设计的工具。sparkly [@R-sparklyr] 极其扩展也形成了一个不可小觑的生态。
 
 
-[sparklyr.flint](https://github.com/r-spark/sparklyr.flint) 支持 Spark 的时间序列库 [flint](https://github.com/twosigma/flint)，[sparkxgb](https://github.com/rstudio/sparkxgb) 为 Spark 上的 XGBoost 提供 R 接口，[sparkwarc](https://github.com/r-spark/sparkwarc) 支持加载 Web ARChive 文件到 Spark 里
-[sparkavro](https://github.com/chezou/sparkavro) 支持从 Apache Avro (<https://avro.apache.org/>) 读取文件到 Spark 里，[sparkbq](https://github.com/miraisolutions/sparkbq) 是一个 sparkly 扩展包，集成 Google BigQuery 服务，[geospark](https://github.com/harryprince/geospark) 提供 GeoSpark 库的 R 接口，并且以 sf 的数据操作方式，[rsparkling](https://github.com/h2oai/sparkling-water/tree/master/r) H2O Sparkling Water 机器学习库的 R 接口。
+
 
 ## 公式 {#math .unnumbered}
 
