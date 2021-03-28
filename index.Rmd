@@ -1,5 +1,6 @@
 --- 
 title: "Tidyverse 食谱"
+subtitle: "实战案例集合"
 author: "黄湘云"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
@@ -24,6 +25,8 @@ biblio-style: plainnat
 natbiboptions: "authoryear,round"
 link-citations: yes
 description: "tidyverse 实战经验总结."
+github-repo: XiangyunHuang/tidyverse-cookbook
+# cover-image: ""
 ---
 
 \mainmatter
@@ -37,11 +40,15 @@ Book in early development. Planned release in 202X.
 :::
 
 
-tidyverse [@tidyverse2019] 已经形成一个强大的生态环境，神挡杀神，佛挡杀佛！ rmarkdown [@rmarkdown2018] 也已经形成一个闭环的生态环境，覆盖写报告、论文、简历、书籍、海报等，也可以做网站、卡片等。 shiny [@R-shiny] 同样形成了一个强大的生态，不仅可以满足学术交流和教育教学的需要，还可以打造企业级报表平台和快速迭代产品原型设计的工具。
+tidyverse [@tidyverse2019] 已经形成一个强大的生态环境，神挡杀神，佛挡杀佛！ rmarkdown [@rmarkdown2018] 也已经形成一个闭环的生态环境，覆盖写报告、论文、简历、书籍、海报等，也可以做网站、卡片等。 shiny [@R-shiny] 同样形成了一个强大的生态，不仅可以满足学术交流和教育教学的需要，还可以打造企业级报表平台和快速迭代产品原型设计的工具。sparkly [@R-sparklyr] 极其扩展也形成了一个不可小觑的生态。
+
+
+[sparklyr.flint](https://github.com/r-spark/sparklyr.flint) 支持 Spark 的时间序列库 [flint](https://github.com/twosigma/flint)，[sparkxgb](https://github.com/rstudio/sparkxgb) 为 Spark 上的 XGBoost 提供 R 接口，[sparkwarc](https://github.com/r-spark/sparkwarc) 支持加载 Web ARChive 文件到 Spark 里
+[sparkavro](https://github.com/chezou/sparkavro) 支持从 Apache Avro (<https://avro.apache.org/>) 读取文件到 Spark 里，[sparkbq](https://github.com/miraisolutions/sparkbq) 是一个 sparkly 扩展包，集成 Google BigQuery 服务，[geospark](https://github.com/harryprince/geospark) 提供 GeoSpark 库的 R 接口，并且以 sf 的数据操作方式，[rsparkling](https://github.com/h2oai/sparkling-water/tree/master/r) H2O Sparkling Water 机器学习库的 R 接口。
 
 ## 公式 {#math .unnumbered}
 
-数学符号和公式 $\alpha, \beta, \boldsymbol{\alpha}, \bm{\beta}$ 和 $\mathbb{A},\mathsf{A},\mathcal{A},\mathscr{A}$
+数学符号和公式 $\alpha, \beta, \boldsymbol{\alpha}, \bm{\beta}$ 和 $A,\mathrm{A},\mathtt{A},\mathbf{A},\mathit{A},\mathbb{A},\mathsf{A},\mathcal{A},\mathscr{A},\mathfrak{A}$。$A$ 和 $\mathit{A}$ 是一样的
 
 $$
 \mathsf{Y} = \mathbf{\mathsf{X}}\beta + \epsilon
@@ -70,18 +77,20 @@ ggplot(iris, aes(Sepal.Length, Sepal.Width)) +
 
 \index{tikzDevice}
 
-```{r regression, dev = 'tikz', fig.cap = "线性回归模型", fig.ext='tex', out.width="75%", fig.process=to_png, cache=TRUE, fig.align='center', fig.asp=1, fig.width=4, fig.height=4}
+```{r regression, dev = 'tikz', fig.cap = "线性回归模型", fig.ext='tex', fig.process=to_png,cache=TRUE,fig.align='center',fig.width=4,fig.height=4}
 x <- rnorm(10)
 y <- x + rnorm(5, sd = 0.25)
 model <- lm(y ~ x)
 rsq <- summary(model)$r.squared
 rsq <- signif(rsq, 4)
 plot(x, y,
-  main = "Hello \\LaTeX!", xlab = "$x$", ylab = "$y$",
-  sub = "$\\mathcal{N}(x;\\mu,\\Sigma)$"
+  main = "你好 \\LaTeX!", # 引入 7 号文本字体
+  sub = "$\\mathcal{N}(x;\\mu,\\Sigma)$",
+  xlab = "$x$", ylab = "$y$"
 )
 abline(model, col = "red")
-mtext(paste("Linear model: $R^{2}=", rsq, "$"), line = 0.5)
+# 引入 7 号数学字体
+mtext(paste("线性模型: $\\mathrm{R}^{2}=", rsq, "$"), line = 0.5)
 legend("bottomright",
   legend = paste0(
     "$y = ",
@@ -94,6 +103,10 @@ legend("bottomright",
 )
 ```
 
+1. 本书在什么情况下会触发使用 LMRoman10-Regular 字体？
+1. 书中为什么会使用两种编码 Ansi 和 Identity-H 的 LMRoman10-Regular 字体？
+1. 我已经指定本书的字体大小为 10 pt，为什么还会使用 LMRoman7-Regular 字体？7 号字体是 tikz 图形的副标题经由 `mtext()` 引入的。
+
 
 ## Python 图形 {#matplotlib .unnumbered}
 \index{reticulate}
@@ -105,7 +118,13 @@ knitr::opts_chunk$set(
   python.reticulate = TRUE,
   pdfcrop = knitr::hook_pdfcrop
 )
-reticulate::use_condaenv("r-reticulate", required = TRUE)
+if(!is.na(Sys.getenv('CI', NA))) {
+  # Remote macOS CI 环境
+  reticulate::use_condaenv("r-reticulate", required = TRUE)
+} else {
+  # Local macOS 环境
+  use_python(python = '/usr/local/bin/python3', required = TRUE)
+}
 ```
 
 启用 `required = TRUE` 是让 **reticulate** 使用指定的 Python 虚拟环境，而不是让它漫无目的地到处找
@@ -135,7 +154,7 @@ xfun::session_info(packages = c(
   "knitr", "rmarkdown", "bookdown", "equatiomatic",
   "data.table", "DT", "kableExtra", "reactable",
   "patchwork", "plotly", "shiny",
-  "RMariaDB", "odbc", "RSQLite",
+  "odbc", "RSQLite",
   "ggplot2", "dplyr", "tidyverse"
 ), dependencies = TRUE)
 ```
@@ -145,6 +164,6 @@ xfun::session_info(packages = c(
 ```{r include=FALSE,cache=FALSE}
 # automatically create a bib database for R packages
 knitr::write_bib(c(
-  .packages(), 'bookdown', 'knitr', 'rmarkdown', 'tidyverse', 'shiny'
+  .packages(), 'bookdown', 'knitr', 'rmarkdown', 'tidyverse', 'shiny', 'sparklyr'
 ), 'packages.bib')
 ```

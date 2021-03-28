@@ -16,6 +16,7 @@ bookdown::pdf_book:
   citation_package: natbib
   template: null
   keep_tex: yes
+  highlight_bw: yes
   extra_dependencies:
     subfig:
      - lotdepth=2
