@@ -39,7 +39,6 @@ github-repo: XiangyunHuang/tidyverse-cookbook
 Book in early development. Planned release in 202X. 
 :::
 
-
 tidyverse [@tidyverse2019] 已经形成一个强大的生态环境，神挡杀神，佛挡杀佛！ rmarkdown [@rmarkdown2018] 也已经形成一个闭环的生态环境，覆盖写报告、论文、简历、书籍、海报等，也可以做网站、卡片等。 shiny [@R-shiny] 同样形成了一个强大的生态，不仅可以满足学术交流和教育教学的需要，还可以打造企业级报表平台和快速迭代产品原型设计的工具。sparkly [@R-sparklyr] 极其扩展也形成了一个不可小觑的生态。
 
 
@@ -92,11 +91,7 @@ abline(model, col = "red")
 mtext(paste("线性模型: $\\mathrm{R}^{2}=", rsq, "$"), line = 0.5)
 legend("bottomright",
   legend = paste0(
-    "$y = ",
-    round(coef(model)[2], 3),
-    "x +",
-    round(coef(model)[1], 3),
-    "$"
+    "$y = ", round(coef(model)[2], 3), "x +", round(coef(model)[1], 3), "$"
   ),
   bty = "n"
 )
