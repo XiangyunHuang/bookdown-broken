@@ -57,6 +57,7 @@ ucs
 uhc
 ulem
 uplatex
+upquote
 uptex
 uptex-base
 uptex-fonts
