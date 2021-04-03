@@ -31,83 +31,9 @@ github-repo: XiangyunHuang/tidyverse-cookbook
 
 \mainmatter
 
-# 欢迎 {#welcome .unnumbered}
-
-\chaptermark{欢迎}
-
-::: {.rmdwarn data-latex="{警告}"}
-Book in early development. Planned release in 202X. 
-:::
-
-tidyverse [@tidyverse2019] 已经形成一个强大的生态环境，神挡杀神，佛挡杀佛！ rmarkdown [@rmarkdown2018] 也已经形成一个闭环的生态环境，覆盖写报告、论文、简历、书籍、海报等，也可以做网站、卡片等。 shiny [@R-shiny] 同样形成了一个强大的生态，不仅可以满足学术交流和教育教学的需要，还可以打造企业级报表平台和快速迭代产品原型设计的工具。sparkly [@R-sparklyr] 极其扩展也形成了一个不可小觑的生态。
-
-
-
-
-## 公式 {#math .unnumbered}
-
-数学符号和公式 $\alpha, \beta, \boldsymbol{\alpha}, \bm{\beta}$ 和 $A,\mathrm{A},\mathtt{A},\mathbf{A},\mathit{A},\mathbb{A},\mathsf{A},\mathcal{A},\mathscr{A},\mathfrak{A}$。$A$ 和 $\mathit{A}$ 是一样的
-
-$$
-\mathsf{Y} = \mathbf{\mathsf{X}}\beta + \epsilon
-$$
-
-## R 图形 {#ggplot2 .unnumbered}
-\index{ggplot2}
-\index{showtext}
-
-```{r showtext, fig.cap="showtext 包处理图里的中文", fig.showtext=TRUE, out.width="75%",fig.width=4,fig.height=3}
-library(ggplot2)
-ggplot(iris, aes(Sepal.Length, Sepal.Width)) +
-  geom_point(aes(colour = Species)) +
-  scale_colour_brewer(palette = "Set1") +
-  labs(
-    title = "鸢尾花数据的散点图",
-    x = "萼片长度", y = "萼片宽度", colour = "鸢尾花类别",
-    caption = "鸢尾花数据集最早见于 Edgar Anderson (1935) "
-  ) +
-  theme(
-    title = element_text(family = "source-han-sans-cn"),
-    axis.title = element_text(family = "source-han-serif-cn"),
-    legend.title = element_text(family = "source-han-serif-cn")
-  )
-```
-
-\index{tikzDevice}
-
-```{r regression, dev = 'tikz', fig.cap = "线性回归模型", fig.ext='tex', fig.process=to_png,cache=TRUE,fig.align='center',fig.width=4,fig.height=4}
-x <- rnorm(10)
-y <- x + rnorm(5, sd = 0.25)
-model <- lm(y ~ x)
-rsq <- summary(model)$r.squared
-rsq <- signif(rsq, 4)
-plot(x, y,
-  main = "你好 \\LaTeX!", # 引入 7 号文本字体
-  sub = "$\\mathcal{N}(x;\\mu,\\Sigma)$",
-  xlab = "$x$", ylab = "$y$"
-)
-abline(model, col = "red")
-# 引入 7 号数学字体
-mtext(paste("线性模型: $\\mathrm{R}^{2}=", rsq, "$"), line = 0.5)
-legend("bottomright",
-  legend = paste0(
-    "$y = ", round(coef(model)[2], 3), "x +", round(coef(model)[1], 3), "$"
-  ),
-  bty = "n"
-)
-```
-
-1. 本书在什么情况下会触发使用 LMRoman10-Regular 字体？
-1. 书中为什么会使用两种编码 Ansi 和 Identity-H 的 LMRoman10-Regular 字体？
-1. 我已经指定本书的字体大小为 10 pt，为什么还会使用 LMRoman7-Regular 字体？7 号字体是 tikz 图形的副标题经由 `mtext()` 引入的。
-
-
-## Python 图形 {#matplotlib .unnumbered}
-\index{reticulate}
-\index{matplotlib}
-
-```{r setup-python}
+```{r setup,include=FALSE}
 library(reticulate)
+knitr::opts_chunk$set(tidy = TRUE)
 knitr::opts_chunk$set(
   python.reticulate = TRUE,
   pdfcrop = knitr::hook_pdfcrop
@@ -121,35 +47,24 @@ if(!is.na(Sys.getenv('CI', NA))) {
 }
 ```
 
-启用 `required = TRUE` 是让 **reticulate** 使用指定的 Python 虚拟环境，而不是让它漫无目的地到处找
+# 欢迎 {#welcome .unnumbered}
+\chaptermark{欢迎}
 
-```{python matplotlib, fig.cap = "matplotlib 示例", dev = ifelse(knitr::is_html_output(), 'svg', ifelse(knitr::is_latex_output(), 'pdf', 'png')), out.width='75%', pdfcrop = FALSE,fig.width=4,fig.height=3}
-import matplotlib.pyplot as plt
-from matplotlib import rcParams
-# 其它可配置选项见 rcParams.keys()
-rcParams.update({'font.size': 10, 'text.usetex': True}) 
-# rcParams.update({'font.family':     ['sans-serif'], 
-#                  'font.monospace':  ['DejaVu Sans Mono'], 
-#                  'font.sans-serif': ['DejaVu Sans'], 
-#                  'font.serif':      ['DejaVu Serif']})
-plt.switch_backend('agg')
-plt.plot([0, 2, 1, 4])
-plt.xlabel(r'Coord $x$')
-plt.ylabel(r'Coord $y$')
-plt.tight_layout()
-plt.show()
-```
+::: {.rmdwarn data-latex="{警告}"}
+Book in early development. Planned release in 202X. 
+:::
+
+::: {.flushright data-latex=""}
+黄湘云  
+北京, 北京
+:::
 
 ## 软件信息 {#session .unnumbered}
 \index{xfun}
 
 ```{r}
 xfun::session_info(packages = c(
-  "knitr", "rmarkdown", "bookdown", "equatiomatic",
-  "data.table", "DT", "kableExtra", "reactable",
-  "patchwork", "plotly", "shiny",
-  "odbc", "RSQLite",
-  "ggplot2", "dplyr", "tidyverse"
+  "knitr", "rmarkdown", "bookdown"
 ), dependencies = TRUE)
 ```
 
@@ -158,6 +73,6 @@ xfun::session_info(packages = c(
 ```{r include=FALSE,cache=FALSE}
 # automatically create a bib database for R packages
 knitr::write_bib(c(
-  .packages(), 'bookdown', 'knitr', 'rmarkdown', 'tidyverse', 'shiny', 'sparklyr'
+  .packages(), 'bookdown', 'knitr', 'rmarkdown'
 ), 'packages.bib')
 ```
