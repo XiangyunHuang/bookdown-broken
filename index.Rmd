@@ -33,7 +33,7 @@ github-repo: XiangyunHuang/tidyverse-cookbook
 
 ```{r setup,include=FALSE}
 library(reticulate)
-knitr::opts_chunk$set(tidy = TRUE)
+
 knitr::opts_chunk$set(
   python.reticulate = TRUE,
   pdfcrop = knitr::hook_pdfcrop
@@ -67,7 +67,6 @@ xfun::session_info(packages = c(
   "knitr", "rmarkdown", "bookdown"
 ), dependencies = TRUE)
 ```
-
 
 
 ```{r include=FALSE,cache=FALSE}

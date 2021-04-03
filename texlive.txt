@@ -27,6 +27,7 @@ luatexbase
 luatexja
 makeindex
 makecell
+mathpazo
 mathspec
 mptopdf
 ms
