@@ -18,7 +18,8 @@ jobs:
     strategy:
       matrix:
         config:
-          - {os: macos-10.15, r: '4.0.4', python: '3.8'}
+          - {os: macos-10.15, r: '4.0.5', python: '3.8'}
+          - {os: macos-10.15, r: '4.1.0', python: '3.8'}
 
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
