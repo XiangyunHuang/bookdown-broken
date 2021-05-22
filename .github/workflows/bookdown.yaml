@@ -133,7 +133,7 @@ jobs:
         with:
           api-key: ${{ secrets.RSC_BETA_TOKEN }}
           url: https://beta.rstudioconnect.com/
-          namespace: experimental-beta
+          namespace: experimental-beta-
           access-type: all
           dir: ${{ steps.render-book.outputs.dir}}:bookdown-broken
 
