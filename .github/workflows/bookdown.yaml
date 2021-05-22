@@ -32,6 +32,7 @@ jobs:
         uses: r-lib/actions/setup-r@master
         with:
           r-version: ${{ matrix.config.r }}
+          Ncpus: 2
 
       - name: Cache conda
         uses: actions/cache@v2
@@ -90,6 +91,7 @@ jobs:
           pkgs <- installed.packages()[, "Package"]
           sessioninfo::session_info(pkgs, include_base = TRUE)
           webshot::is_phantomjs_installed()
+          parallel::detectCores()
         shell: Rscript {0}
 
       - name: Install TinyTeX
