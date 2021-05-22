@@ -135,6 +135,7 @@ jobs:
           url: https://beta.rstudioconnect.com/
           namespace: experimental-beta-
           access-type: all
+          require-vanity-path: true
           dir: ${{ steps.render-book.outputs.dir}}:bookdown-broken
 
       - name: Checkout the gh-pages branch
