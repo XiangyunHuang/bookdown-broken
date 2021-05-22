@@ -114,7 +114,7 @@ jobs:
       - name: Render Book
         id: render-book
         run: |
-          res <- bookdown::render_book("index.Rmd", quiet = TRUE)
+          res <- bookdown::render_book("index.Rmd")
           cat(sprintf("::set-output name=dir::%s", dirname(res)))
         shell: Rscript {0}
 
@@ -133,8 +133,9 @@ jobs:
         with:
           api-key: ${{ secrets.RSC_BETA_TOKEN }}
           url: https://beta.rstudioconnect.com/
-          access-type: logged_in
-          dir: ${{ steps.render-book.outputs.dir}}:demo-deploy-bookdown
+          namespace: experimental-beta
+          access-type: all
+          dir: ${{ steps.render-book.outputs.dir}}:bookdown-broken
 
       - name: Checkout the gh-pages branch
         uses: actions/checkout@v2
