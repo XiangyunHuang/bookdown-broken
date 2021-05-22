@@ -16,10 +16,11 @@ jobs:
     runs-on: ${{ matrix.config.os }}
     name: ${{ matrix.config.os }} (r-${{ matrix.config.r }}) (python-${{ matrix.config.python }})
     strategy:
+      fail-fast: false
       matrix:
         config:
           - {os: macos-10.15, r: '4.0.5', python: '3.8'}
-          #- {os: macos-10.15, r: '4.1.0', python: '3.8'} # 暂不可用
+          - {os: macos-10.15, r: '4.1.0', python: '3.8'}
 
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
