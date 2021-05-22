@@ -126,6 +126,8 @@ jobs:
 
       - name: Install npm
         uses: actions/setup-node@v1
+        with:
+          node-version: '14'
 
       - name: Upload book folder for debug
         if: failure()
