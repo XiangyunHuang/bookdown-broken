@@ -113,6 +113,17 @@ jobs:
       - name: Build site
         run: Rscript -e 'bookdown::render_book("index.Rmd", "all")'
 
+
+      - name: Checkout the gh-pages branch
+        uses: actions/checkout@v2
+        with:
+          ref: gh-pages
+          path: book-output
+
+      - name: Deploy book
+        if: ${{ github.ref == 'refs/heads/master' }}
+        run: ./_deploy.sh
+
       - name: Install npm
         uses: actions/setup-node@v1
 
