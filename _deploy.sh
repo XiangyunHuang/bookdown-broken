@@ -4,6 +4,9 @@ set -e
 
 cd book-output
 
+git config --global user.email "xiangyunfaith@outlook.com"
+git config --global user.name "Xiangyun Huang"
+
 ls | xargs rm -rf
 git ls-files --deleted -z | xargs -0 git rm
 
