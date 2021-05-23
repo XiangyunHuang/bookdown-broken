@@ -1,7 +1,7 @@
 # On CI connect to server, using API KEY and deploy using appId
 rsconnect::addConnectServer("https://bookdown.org", "bookdown.org")
 rsconnect::connectApiUser(
-  account = "GHA", server = "bookdown.org",
+  account = "xiangyun", server = "bookdown.org",
   apiKey = Sys.getenv("CONNECT_API_KEY")
 )
 rsconnect::deploySite(
