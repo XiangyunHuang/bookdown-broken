@@ -88,9 +88,8 @@ jobs:
       - name: Session info
         run: |
           options(width = 100)
-          install.packages(c("sessioninfo", "webshot")
-          pkgs <- installed.packages()[, "Package"]
-          sessioninfo::session_info(pkgs, include_base = TRUE)
+          install.packages("webshot")
+          sessionInfo(package = .packages(T))
           webshot::is_phantomjs_installed()
           parallel::detectCores()
         shell: Rscript {0}
