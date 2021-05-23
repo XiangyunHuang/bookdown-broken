@@ -124,7 +124,7 @@ jobs:
       - name: Deploy book to bookdown.org
         if: github.event_name == 'push'
         env:
-          CONNECT_API_KEY: ${{ secrets.RSC_BETA_TOKEN }}
+          CONNECT_API_KEY: ${{ secrets.RSC_BOOKDOWN_TOKEN }}
           CONTENT_ID: 3
         run: |
           Rscript '_deploy-book.R'
