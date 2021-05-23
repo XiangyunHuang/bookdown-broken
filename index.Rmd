@@ -1,6 +1,6 @@
 --- 
-title: "Tidyverse 食谱"
-subtitle: "实战案例集合"
+title: "Bookdown Broken"
+subtitle: "学习 R Markdown 功能和 Github Action 的测试环境"
 author: "黄湘云"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
@@ -24,8 +24,8 @@ bibliography:
 biblio-style: plainnat
 natbiboptions: "authoryear,round"
 link-citations: yes
-description: "tidyverse 实战经验总结."
-github-repo: XiangyunHuang/tidyverse-cookbook
+description: "学习 R Markdown 功能和 Github Action 的测试环境."
+github-repo: XiangyunHuang/bookdown-broken
 # cover-image: ""
 ---
 
