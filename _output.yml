@@ -3,7 +3,7 @@
 #   config:
 #     toc:
 #       before: |
-#         <li><a href="./">Tidyverse 食谱</a></li>
+#         <li><a href="./">bookdown broken</a></li>
 #       after: |
 #         <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 #     download: ["pdf", "epub"]
