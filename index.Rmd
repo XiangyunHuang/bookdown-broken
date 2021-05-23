@@ -32,18 +32,12 @@ github-repo: XiangyunHuang/bookdown-broken
 \mainmatter
 
 ```{r setup,include=FALSE}
-library(reticulate)
-
 knitr::opts_chunk$set(
-  python.reticulate = TRUE,
-  pdfcrop = knitr::hook_pdfcrop
+  python.reticulate = TRUE
 )
 if(!is.na(Sys.getenv('CI', NA))) {
   # Remote macOS CI 环境
   reticulate::use_condaenv("r-reticulate", required = TRUE)
-} else {
-  # Local macOS 环境
-  reticulate::use_python(python = '/usr/local/bin/python3', required = TRUE)
 }
 ```
 

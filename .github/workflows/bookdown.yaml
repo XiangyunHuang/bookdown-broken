@@ -79,16 +79,16 @@ jobs:
           key: bookdown-${{ hashFiles('**/*Rmd') }}
           restore-keys: bookdown-
 
-      - name: Install dependencies
+      - name: Install R Packages
         run: |
-          install.packages("remotes")
-          remotes::install_deps(dependencies = TRUE)
+          install.packages("renv")
+          renv::restore()
         shell: Rscript {0}
 
       - name: Session info
         run: |
           options(width = 100)
-          install.packages(c("sessioninfo", "webshot", "tinytex"))
+          install.packages(c("sessioninfo", "webshot")
           pkgs <- installed.packages()[, "Package"]
           sessioninfo::session_info(pkgs, include_base = TRUE)
           webshot::is_phantomjs_installed()
@@ -101,13 +101,10 @@ jobs:
       - name: Install LaTeX Packages
         run: |
           tinytex::tlmgr_install(readLines("texlive.txt"))
-          tinytex:::is_tinytex()
         shell: Rscript {0}
 
-      - name: Install packages
+      - name: Install fonts
         run: |
-          install.packages("renv")
-          renv::restore()
           library(showtext)
           font_install(source_han_serif(), quiet = TRUE)
           font_install(source_han_sans(), quiet = TRUE)

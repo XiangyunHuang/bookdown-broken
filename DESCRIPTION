@@ -2,14 +2,14 @@ Package: placeholder
 Type: Book
 Title: Does not matter.
 Version: 0.0.1
-Depends: R (>= 4.0.4)
+Depends: R (>= 4.0.5)
 Imports: 
-  bookdown (>= 0.21), 
+  bookdown (>= 0.22), 
   downlit (>= 0.2.1),
-  knitr (>= 1.31),
-  magick (>= 2.6.0),
-  pdftools (>= 2.3.1),
-  reticulate (>= 1.18),
-  rmarkdown (>= 2.7)
+  knitr (>= 1.33),
+  magick (>= 2.7.2),
+  pdftools (>= 3.0.1),
+  reticulate (>= 1.20),
+  rmarkdown (>= 2.8)
   rsconnect (>= 0.8.17)
 SystemRequirements: pandoc (>= 2.11.4) - https://pandoc.org
