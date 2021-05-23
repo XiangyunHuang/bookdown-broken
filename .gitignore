@@ -4,9 +4,10 @@
 .Ruserdata
 .DS_Store
 packages.bib
-tidyverse-cookbook.rds
-tidyverse-cookbook.log
+
 _book
 _bookdown_files
 *.log
 *-tikzDictionary
+rsconnect
+bookdown-broken.rds
