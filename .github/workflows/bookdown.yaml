@@ -62,7 +62,7 @@ jobs:
 
       - name: Install ghostscript and Others
         run: |
-          brew upgrade
+          brew update
           brew install ghostscript imagemagick@6 poppler
 
       - name: Cache R packages
@@ -140,13 +140,22 @@ jobs:
           access-type: all
           dir: ${{ steps.render-book.outputs.dir}}:bookdown-broken
 
+      # - name: Deploy to Github Pages
+      #   if: ${{ github.ref == 'refs/heads/master' }}
+      #   uses: JamesIves/github-pages-deploy-action@3.7.1
+      #   with:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #     BRANCH: gh-pages
+      #     FOLDER: _book
+      #     CLEAN: true
+          
       - name: Checkout the gh-pages branch
         uses: actions/checkout@v2
         with:
           ref: gh-pages
           path: book-output
 
-      - name: Deploy book
+      - name: Deploy to Github Pages
         if: ${{ github.ref == 'refs/heads/master' }}
         run: ./_deploy.sh
 
