@@ -121,7 +121,14 @@ jobs:
           cat(sprintf("::set-output name=dir::%s", dirname(res)))
         shell: Rscript {0}
 
-
+      - name: Deploy book to bookdown.org
+        if: github.event_name == 'push'
+        env:
+          CONNECT_API_KEY: ${{ secrets.RSC_BETA_TOKEN }}
+          CONTENT_ID: 3
+        run: |
+          Rscript '_deploy-book.R'
+      
       - name: setup rsconnect and create manifest
         run: |
           renv::install("rsconnect")
