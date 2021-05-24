@@ -8,12 +8,10 @@ options(
   crayon.enabled = FALSE,
   tinytex.engine = 'xelatex',
   tikzDefaultEngine = "xetex",
-  tikzDocumentDeclaration = "\\documentclass[UTF8,10pt,fontset=fandol]{ctexart}\n",
+  tikzDocumentDeclaration = "\\documentclass[tikz]{standalone}\n",
   tikzXelatexPackages = c(
-    "\\usepackage[colorlinks,breaklinks]{hyperref}",
-    "\\usepackage{color,times,tikz}",
-    "\\usepackage[active,tightpage,xetex]{preview}",
-    "\\PreviewEnvironment{pgfpicture}",
-    "\\usepackage{amsmath,amsfonts,mathrsfs,amssymb}"
+    "\\usepackage[fontset=fandol]{ctex}",
+    "\\usepackage[default,semibold]{sourcesanspro}",
+    "\\usepackage{amsfonts,mathrsfs,amssymb}\n"
   )
 )
