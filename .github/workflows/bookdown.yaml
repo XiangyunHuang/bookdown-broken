@@ -69,15 +69,15 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ${{ env.R_LIBS_USER }}
-          key: r-${{ hashFiles('DESCRIPTION') }}
-          restore-keys: r-
+          key: r-${{ matrix.config.os }}-${{ matrix.config.r }}-${{ hashFiles('DESCRIPTION') }}
+          restore-keys: r-${{ matrix.config.os }}-${{ matrix.config.r }}-
 
       - name: Cache bookdown results
         uses: actions/cache@v2
         with:
           path: _bookdown_files
-          key: bookdown-${{ hashFiles('**/*Rmd') }}
-          restore-keys: bookdown-
+          key: bookdown-${{ matrix.config.os }}-${{ matrix.config.r }}-${{ hashFiles('**/*Rmd') }}
+          restore-keys: bookdown-${{ matrix.config.os }}-${{ matrix.config.r }}-
 
       - name: Install R Packages
         run: |
