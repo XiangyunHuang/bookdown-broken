@@ -9,10 +9,6 @@
       {
         "Name": "CRANextra",
         "URL": "https://macos.rbind.io"
-      },
-      {
-        "Name": "CMDSTAN",
-        "URL": "https://mc-stan.org/r-packages"
       }
     ]
   },
