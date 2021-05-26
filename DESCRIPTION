@@ -10,6 +10,7 @@ Imports:
   magick (>= 2.7.2),
   pdftools (>= 3.0.1),
   reticulate (>= 1.20),
-  rmarkdown (>= 2.8)
-  rsconnect (>= 0.8.17)
+  rmarkdown (>= 2.8),
+  rsconnect (>= 0.8.17),
+  showtext (>= 0.9.2)
 SystemRequirements: pandoc (>= 2.11.4) - https://pandoc.org
