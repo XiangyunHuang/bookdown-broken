@@ -12,4 +12,5 @@ dependencies:
     - sympy>=1.7.1
     - tensorflow>=2.4.1
     - statsmodels>=0.12.2
+    - kaleido>=0.2.1
 prefix: ~/miniconda3/envs/r-reticulate

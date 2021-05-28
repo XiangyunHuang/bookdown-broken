@@ -113,7 +113,7 @@ jobs:
       - name: Render Book
         id: render-book
         run: |
-          res <- bookdown::render_book("index.Rmd")
+          res <- bookdown::render_book("index.Rmd", "all")
           cat(sprintf("::set-output name=dir::%s", dirname(res)))
         shell: Rscript {0}
 

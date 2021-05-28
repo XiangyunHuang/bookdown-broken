@@ -72,6 +72,28 @@ px.scatter(
     color_discrete_sequence=px.colors.qualitative.Set2,
 )
 ```
+```{python export-image, include=FALSE, eval=knitr::is_latex_output()}
+import plotly.express as px
+fig = px.scatter(
+    px.data.iris(),
+    x="sepal_width",
+    y="sepal_length",
+    color="species",
+    trendline="ols",
+    template="simple_white",
+    labels={
+        "sepal_length": "Sepal Length (cm)",
+        "sepal_width": "Sepal Width (cm)",
+        "species": "Species of Iris",
+    },
+    title="Edgar Anderson's Iris Data",
+    color_discrete_sequence=px.colors.qualitative.Set2,
+)
+fig.write_image("iris.png", engine="kaleido")
+```
+```{r iris, eval=knitr::is_latex_output(), fig.cap="插入图片", dependson='export-image'}
+knitr::include_graphics(path = "iris.png")
+```
 
 ## 软件信息 {#session .unnumbered}
 \index{xfun}
