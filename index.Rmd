@@ -72,7 +72,7 @@ px.scatter(
     color_discrete_sequence=px.colors.qualitative.Set2,
 )
 ```
-```{python export-image, include=FALSE, eval=knitr::is_latex_output()}
+```{python export-image, include=FALSE, eval=!knitr::is_html_output()}
 import plotly.express as px
 fig = px.scatter(
     px.data.iris(),
@@ -91,7 +91,7 @@ fig = px.scatter(
 )
 fig.write_image("iris.png", engine="kaleido")
 ```
-```{r iris, eval=knitr::is_latex_output(), fig.cap="插入图片", dependson='export-image'}
+```{r iris, echo=FALSE, eval=!knitr::is_html_output(), fig.cap="插入图片", dependson='export-image', out.width="75%"}
 knitr::include_graphics(path = "iris.png")
 ```
 
