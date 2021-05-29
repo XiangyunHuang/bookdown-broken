@@ -173,19 +173,19 @@ jobs:
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
         timeout-minutes: 10
 
-      - name: setup rsconnect and create manifest
-        run: |
-          book_dir <- "${{ steps.render-book.outputs.dir}}"
-          rsconnect::writeManifest(appDir = book_dir, verbose = TRUE)
-        shell: Rscript {0}
-
-      - name: Deploy to RStudio Connect
-        env:
-          NODE_DEBUG: rsc*
-        uses: rstudio/actions/connect-publish@main
-        with:
-          api-key: ${{ secrets.RSC_BETA_TOKEN }}
-          url: https://beta.rstudioconnect.com/
-          namespace: experimental-beta-
-          access-type: all
-          dir: ${{ steps.render-book.outputs.dir}}:bookdown-broken
+      # - name: setup rsconnect and create manifest
+      #   run: |
+      #     book_dir <- "${{ steps.render-book.outputs.dir}}"
+      #     rsconnect::writeManifest(appDir = book_dir, verbose = TRUE)
+      #   shell: Rscript {0}
+      # 
+      # - name: Deploy to RStudio Connect
+      #   env:
+      #     NODE_DEBUG: rsc*
+      #   uses: rstudio/actions/connect-publish@main
+      #   with:
+      #     api-key: ${{ secrets.RSC_BETA_TOKEN }}
+      #     url: https://beta.rstudioconnect.com/
+      #     namespace: experimental-beta-
+      #     access-type: all
+      #     dir: ${{ steps.render-book.outputs.dir}}:bookdown-broken
