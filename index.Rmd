@@ -41,7 +41,7 @@ if(!is.na(Sys.getenv('CI', NA))) {
 }
 ```
 
-# 欢迎 {#chap:welcome .unnumbered}
+# 欢迎 {#welcome .unnumbered}
 \chaptermark{欢迎}
 
 ::: {.rmdwarn data-latex="{警告}"}
