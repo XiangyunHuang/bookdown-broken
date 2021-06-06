@@ -1,9 +1,14 @@
 on:
   push:
-    branches: master
+    branches:
+      - master
+      - test
   schedule:
     # 每周一晚上11点跑任务
     - cron:  '0 23 * * 1'
+  pull_request:
+    branches:
+      - master
 
 name: bookdown
 
