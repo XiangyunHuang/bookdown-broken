@@ -23,6 +23,7 @@ bookdown::pdf_book:
   citation_package: natbib
   template: null
   keep_tex: yes
+  dev: cairo_pdf
   extra_dependencies:
     subfig:
      - lotdepth=2
