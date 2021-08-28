@@ -1,9 +1,15 @@
 on:
   push:
-    branches: master
+    branches:
+      - master
+      - test
   schedule:
     # 每周一晚上11点跑任务
     - cron:  '0 23 * * 1'
+  pull_request:
+    branches:
+      - master
+      - test
 
 name: bookdown
 
@@ -62,8 +68,7 @@ jobs:
 
       - name: Install ghostscript and Others
         run: |
-          brew update
-          brew install ghostscript imagemagick@6 poppler
+          brew install ghostscript imagemagick@6 poppler font-xkcd
 
       - name: Cache R packages
         uses: actions/cache@v2

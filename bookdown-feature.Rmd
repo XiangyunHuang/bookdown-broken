@@ -1,0 +1,26 @@
+# bookdown 新特性 {#chap-bookdown-feature}
+
+```{r, eval=knitr::is_html_output()}
+library(leaflet)
+
+library(echarts4r)
+quakes |> 
+  e_charts(x = long) |> 
+  e_geo(
+    roam = TRUE,
+    boundingCoords = list(
+      c(185, -10),
+      c(165, -40)
+    )
+  )  |>  
+  e_scatter(
+    serie = lat, 
+    size = mag, 
+    # legend = F,
+    name = "斐济地震带",
+    coord_system = "geo"
+  ) |> 
+  e_visual_map(serie = mag, scale = e_scale, inRange = list(color = terrain.colors(10))) |> 
+  e_tooltip()
+```
+

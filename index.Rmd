@@ -31,77 +31,49 @@ github-repo: XiangyunHuang/bookdown-broken
 
 \mainmatter
 
-```{r setup,include=FALSE}
-knitr::opts_chunk$set(
-  python.reticulate = TRUE
-)
-if(!is.na(Sys.getenv('CI', NA))) {
-  # Remote macOS CI 环境
-  reticulate::use_condaenv("r-reticulate", required = TRUE)
-}
-```
-
 # 欢迎 {#welcome .unnumbered}
 \chaptermark{欢迎}
 
+G\'abor Cs\'ardi \d{o} 含有注音符号 Gábor Csárdi
+	
 ::: {.rmdwarn data-latex="{警告}"}
 Book in early development. Planned release in 202X. 
 :::
 
-::: {.flushright data-latex=""}
-黄湘云  
-北京, 北京
-:::
 
-```{python python-plotly, fig.cap="Python 版的 plotly", eval=knitr::is_html_output()}
-import plotly.express as px
-
-px.scatter(
-    px.data.iris(),
-    x="sepal_width",
-    y="sepal_length",
-    color="species",
-    trendline="ols",
-    template="simple_white",
-    labels={
-        "sepal_length": "Sepal Length (cm)",
-        "sepal_width": "Sepal Width (cm)",
-        "species": "Species of Iris",
-    },
-    title="Edgar Anderson's Iris Data",
-    color_discrete_sequence=px.colors.qualitative.Set2,
+```{r stats-level, fig.cap="(ref:stats-level)", fig.scap="(ref:stats-level-s)", fig.width=4, fig.height=4, echo=FALSE}
+par(mar = rep(0.5, 4))
+plot(c(0, 10), c(0, 10), ann = F, axes = F, type = "n")
+symbols(c(5, 5, 5), c(2.8, 4.0, 4.8),
+  circles = c(1.8, 3.5, 4.6), lwd = 2, inches = F,
+  fg = c("gray", "gray", "gray"), add = TRUE, lty = c("dotted", "dashed", "solid")
 )
-```
-```{python export-image, echo=FALSE, eval=!knitr::is_html_output()}
-import plotly.express as px
-fig = px.scatter(
-    px.data.iris(),
-    x="sepal_width",
-    y="sepal_length",
-    color="species",
-    trendline="ols",
-    template="simple_white",
-    labels={
-        "sepal_length": "Sepal Length (cm)",
-        "sepal_width": "Sepal Width (cm)",
-        "species": "Species of Iris",
-    },
-    title="Edgar Anderson's Iris Data",
-    color_discrete_sequence=px.colors.qualitative.Set2,
-)
-fig.write_image("iris.png", engine="kaleido")
-```
-```{r iris, echo=FALSE, eval=!knitr::is_html_output(), fig.cap="插入图片", out.width="75%"}
-knitr::include_graphics(path = "iris.png")
+text(x = 5, y = 2.8, labels = "NORMAL THEORY \n (exact calculations)", cex = .8)
+text(x = 5, y = 6.0, labels = "EXPONENTIAL FAMILIES \n (partly exact)", cex = .8)
+text(x = 5, y = 8.5, labels = "GENERAL THEORY \n (asymptotics)", cex = .8)
+points(x = 5.2, y = 5.2, pch = 8, col = "black")
+points(x = 4.8, y = 6.0, pch = 8, col = "black")
+points(x = 2.5, y = 5.0, pch = 8, col = "black")
+points(x = 3.0, y = 4.2, pch = 8, col = "black")
+points(x = 8.0, y = 4.5, pch = 8, col = "black")
+box()
 ```
 
-## 软件信息 {#session .unnumbered}
-\index{xfun}
+(ref:stats-level-s) 现代统计建模的三重境界
 
-```{r}
-xfun::session_info(packages = c(
-  "knitr", "rmarkdown", "bookdown"
-), dependencies = TRUE)
+(ref:stats-level) 现代统计建模的三重境界：修改自 2019 年冬季 Bradley Efron 的课程笔记（第一部分） <http://statweb.stanford.edu/~ckirby/brad/STATS305B_Part-1_corrected-2.pdf>
+
+图 \@ref(fig:xkcd-fonts) 是一幅漫画风格的图形，展示了三种不同鸢尾花的萼片宽度和长度的关系，所用 iris 数据集也来自 Base R 自带的 **datasets** 包，由 Anderson Edgar 收集，最早见于 1935 年的文章，后被 Ronald Fisher 在研究分类问题时引用，到如今，在机器学习的社区里，提及 iris 数据集，很多人只知 Fisher 不知 Anderson。
+
+```{r xkcd-fonts, fig.cap="漫画风格的图形", out.width="75%", fig.width=5, fig.height=3, echo=FALSE}
+library(ggplot2)
+ggplot(data = iris, aes(Sepal.Length, Sepal.Width)) +
+  geom_point(aes(color = Species, shape = Species)) +
+  theme_bw(base_size = 13, base_family = "xkcd") +
+  theme(
+    panel.border = element_rect(color = "black"),
+    panel.grid = element_blank()
+  )
 ```
 
 
