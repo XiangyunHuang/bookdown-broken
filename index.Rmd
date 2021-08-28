@@ -31,26 +31,6 @@ github-repo: XiangyunHuang/bookdown-broken
 
 \mainmatter
 
-```{r setup,include=FALSE}
-knitr::opts_chunk$set(
-  python.reticulate = TRUE
-)
-reticulate::use_virtualenv(virtualenv = Sys.getenv("RETICULATE_PYTHON_ENV"), required = TRUE)
-library(rgl)
-setupKnitr(autoprint = TRUE)
-
-# embed math fonts to pdf
-embed_math_fonts <- function(fig_path) {
-  if(knitr::is_latex_output()){
-    embedFonts(
-      file = fig_path, outfile = fig_path,
-      fontpaths = system.file("fonts", package = "fontcm")
-    )
-  }
-  return(fig_path)
-}
-```
-
 # 欢迎 {#welcome .unnumbered}
 \chaptermark{欢迎}
 
@@ -61,368 +41,39 @@ Book in early development. Planned release in 202X.
 :::
 
 
-```{r god-play-games, fig.cap="上帝在掷骰子吗？", dev='tikz', out.width="75%", fig.process=to_png, ,fig.width=4, fig.height=4, cache=TRUE, echo=FALSE}
-# 随机，先验分布
-# 正态分布是服从一定的微分方程
-set.seed(2018)
-plot(x = density(rnorm(1000)),
-  type = "l",
-  xlab = "随机变量 $x$", ylab = "概率密度 $y$",
-  main = "$y = f(x) = \\frac{1}{\\sqrt{2\\pi}}e^{-\\frac{x^2}{2}}$"
+```{r stats-level, fig.cap="(ref:stats-level)", fig.scap="(ref:stats-level-s)", fig.width=4, fig.height=4, echo=FALSE}
+par(mar = rep(0.5, 4))
+plot(c(0, 10), c(0, 10), ann = F, axes = F, type = "n")
+symbols(c(5, 5, 5), c(2.8, 4.0, 4.8),
+  circles = c(1.8, 3.5, 4.6), lwd = 2, inches = F,
+  fg = c("gray", "gray", "gray"), add = TRUE, lty = c("dotted", "dashed", "solid")
 )
-for (i in 1:10) {
-  lines(density(rnorm(1000)), type = "l", lty = 2)
-}
-curve(dnorm, col = "red", lwd = 3, add = TRUE)
-abline(h = 1 / (sqrt(2 * pi)), lwd = 2, lty = 2)
-arrows(
-  x0 = 1, y0 = 1 / (sqrt(2 * pi)) - 0.005,
-  x1 = 1.8, y1 = 0.37, length = 0.15
-)
-text(2, 0.35, "$\\frac{1}{\\sqrt{2\\pi}}$", cex = 2)
+text(x = 5, y = 2.8, labels = "NORMAL THEORY \n (exact calculations)", cex = .8)
+text(x = 5, y = 6.0, labels = "EXPONENTIAL FAMILIES \n (partly exact)", cex = .8)
+text(x = 5, y = 8.5, labels = "GENERAL THEORY \n (asymptotics)", cex = .8)
+points(x = 5.2, y = 5.2, pch = 8, col = "black")
+points(x = 4.8, y = 6.0, pch = 8, col = "black")
+points(x = 2.5, y = 5.0, pch = 8, col = "black")
+points(x = 3.0, y = 4.2, pch = 8, col = "black")
+points(x = 8.0, y = 4.5, pch = 8, col = "black")
+box()
 ```
 
-```{r system-dejavu-fonts, fig.width=6.5, fig.height=6, fig.cap="调用系统字体绘图", out.width="75%"}
-library(extrafont)
-plot(data = pressure, pressure ~ temperature, 
-     xlab = "Temperature (deg C)", ylab = "Pressure (mm of Hg)",
-     col.lab = "red", col.axis = "blue",
-     font.lab = 3, font.axis = 2, family = "DejaVu Sans")
-title(main = "Vapor Pressure of Mercury as a Function of Temperature", 
-      family = "DejaVu Serif", font.main = 3)
-title(sub = "Data Source: Weast, R. C", 
-      family = "DejaVu Sans Mono", font.sub = 1)
-```
+(ref:stats-level-s) 现代统计建模的三重境界
 
-```{r hrbrthemes, fig.cap="调用 hrbrthemes 包设置字体主题", out.width="75%"}
+(ref:stats-level) 现代统计建模的三重境界：修改自 2019 年冬季 Bradley Efron 的课程笔记（第一部分） <http://statweb.stanford.edu/~ckirby/brad/STATS305B_Part-1_corrected-2.pdf>
+
+图 \@ref(fig:xkcd-fonts) 是一幅漫画风格的图形，展示了三种不同鸢尾花的萼片宽度和长度的关系，所用 iris 数据集也来自 Base R 自带的 **datasets** 包，由 Anderson Edgar 收集，最早见于 1935 年的文章，后被 Ronald Fisher 在研究分类问题时引用，到如今，在机器学习的社区里，提及 iris 数据集，很多人只知 Fisher 不知 Anderson。
+
+```{r xkcd-fonts, fig.cap="漫画风格的图形", out.width="75%", fig.width=5, fig.height=3, echo=FALSE}
 library(ggplot2)
-library(hrbrthemes)
-ggplot(mtcars, aes(mpg, wt)) +
-  geom_point() +
-  labs(
-    x = "Fuel efficiency (mpg)", y = "Weight (tons)",
-    title = "Seminal ggplot2 scatterplot example",
-    subtitle = "A plot that is only useful for demonstration purposes",
-    caption = "Brought to you by the letter 'g'"
-  ) +
-  theme_ipsum(base_family = "Roboto Condensed")
-```
-
-
-```{r showtext, fig.cap="showtext 包处理图里的中文", fig.width=5, fig.height=4, fig.showtext=TRUE, out.width="75%"}
-library(ggplot2)
-ggplot(iris, aes(Sepal.Length, Sepal.Width)) +
-  geom_point(aes(colour = Species)) +
-  scale_colour_brewer(palette = "Set1") +
-  labs(
-    title = "鸢尾花数据的散点图",
-    x = "萼片长度", y = "萼片宽度", colour = "鸢尾花类别",
-    caption = "鸢尾花数据集最早见于 Edgar Anderson (1935) "
-  ) +
+ggplot(data = iris, aes(Sepal.Length, Sepal.Width)) +
+  geom_point(aes(color = Species, shape = Species)) +
+  theme_bw(base_size = 13, base_family = "xkcd") +
   theme(
-    title = element_text(family = "source-han-sans-cn"),
-    axis.title = element_text(family = "source-han-serif-cn"),
-    legend.title = element_text(family = "source-han-serif-cn")
+    panel.border = element_rect(color = "black"),
+    panel.grid = element_blank()
   )
-```
-
-```{r}
-fn = function(x,y){
-  sin(pi*x)*cosh(pi*y)
-}
-x = seq(0, 1, length.out = 101)
-y = seq(0, 1, length.out = 101)
-z = outer(x,y, fn)
-```
-
-
-```{r tikz-regression, dev='tikz', fig.cap="线性回归模型", out.width="75%", fig.process=to_png, cache=TRUE, fig.width=4, fig.height=4}
-x <- rnorm(10)
-y <- x + rnorm(5, sd = 0.25)
-model <- lm(y ~ x)
-rsq <- summary(model)$r.squared
-rsq <- signif(rsq, 4)
-plot(x, y,
-  main = "Hello \\LaTeX!", xlab = "$x$", ylab = "$y$",
-  sub = "$\\mathcal{N}(x;\\mu,\\Sigma)$"
-)
-abline(model, col = "red")
-mtext(paste("Linear model: $R^{2}=", rsq, "$"), line = 0.5)
-legend("bottomright",
-  legend = paste0(
-    "$y = ",
-    round(coef(model)[2], 3),
-    "x +",
-    round(coef(model)[1], 3),
-    "$"
-  ),
-  bty = "n"
-)
-```
-
-```{r laplace-eq-image, fig.cap="解析解", fig.subcap=c("解析解的二维图像", "解析解的三维透视图像"), fig.width=5, fig.height=5, fig.ncol=2, out.width="45%"}
-image(z, col = terrain.colors(20))
-contour(z, method = "flattest", add = TRUE, lty = 1)
-library(shape)
-persp(z, 
-  theta = -30, phi = 30,
-  col = drapecol(z, col = terrain.colors(20)),
-  ticktype = "detailed",
-  xlab = "X", ylab = "Y", zlab = "Z", border = "transparent",
-  main = ""
-)
-```
-
-(ref:pbinom) 二项分布 $B(n,\theta)$ 成功概率 $\theta$，固定样本量 $n = 10$，分不同的分位点 $q = 2, 4, 6$ 绘制概率随成功概率 $\theta$ 的变化
-
-```{r pbinom, fig.cap="(ref:pbinom)", echo=FALSE, fig.width=5, fig.height=4, out.width="75%"}
-library(ggplot2)
-ggplot(data.frame(x = c(0, 1)), aes(x)) +
-  stat_function(
-    fun = pbinom, geom = "path", 
-    args = list(size = 10, q = 2),
-    color = "gray70", alpha = .8 # 颜色最浅
-  ) +
-  stat_function(
-    fun = pbinom, geom = "path",
-    args = list(size = 10, q = 4),
-    color = "gray50", alpha = .8
-  ) +
-  stat_function(
-    fun = pbinom, geom = "path",
-    args = list(size = 10, q = 6),
-    color = "gray30", alpha = .8
-  ) +
-  labs(x = expression(theta), y = expression(p[theta])) +
-  annotate("text", label = "q = 2", x = 0.32, y = 0.50, colour = "gray70") +
-  annotate("text", label = "q = 4", x = 0.50, y = 0.50, colour = "gray50") +
-  annotate("text", label = "q = 6", x = 0.70, y = 0.50, colour = "gray30") +
-  theme_minimal(base_size = 16)
-```
-
-```{r}
-library(data.table)
-diamonds <- as.data.table(diamonds)
-dat <- diamonds[, .(cnt = .N), by = .(cut, clarity)] %>% 
-  .[, pct := cnt / sum(cnt), by = .(cut)] %>% 
-  .[, pct_pp := paste0(cnt, " (", scales::percent(pct, accuracy = 0.01), ")") ]
-```
-
-```{r barplot-2, fig.cap="添加注释到条形图", fig.height=8, fig.width=8}
-library(patchwork)
-p1 <- ggplot(data = dat, aes(x = cut, y = cnt, fill = clarity)) +
-  geom_col(position = "dodge") +
-  geom_text(aes(label = cnt),
-    position = position_dodge(1), size = 2, vjust = -0.5
-  ) +
-  geom_text(aes(label = scales::percent(pct, accuracy = 0.1)),
-    position = position_dodge(1), size = 2, vjust = 1, hjust = 0.5
-  ) +
-  scale_fill_brewer(palette = "Spectral") +
-  labs(fill = "clarity", y = "", x = "cut") +
-  theme_minimal() +
-  theme(legend.position = "top")
-
-p2 <- ggplot(data = dat, aes(y = cut, x = cnt, fill = clarity)) +
-  geom_col(position = "fill") +
-  geom_text(aes(label = cnt),
-    position = position_fill(1), size = 3, vjust = -0.5
-  ) +
-  geom_text(aes(label = scales::percent(pct, accuracy = 0.1)),
-    position = position_fill(1), size = 3, vjust = 1, hjust = 0.5
-  ) +
-  scale_fill_brewer(palette = "Spectral") +
-  scale_x_continuous(labels = scales::percent) +
-  labs(fill = "clarity", y = "", x = "cut") +
-  theme_minimal() +
-  theme(legend.position = "top")
-
-p1 / p2
-```
-
-```{r normal-dist, fig.cap="统计学的世界", fig.width=6, fig.height=4, out.width="75%"}
-par(mar = c(.5, 2.1, .5, .5))
-x1 <- seq(-10, 10, length = 101)
-x2 <- x1 
-f <- function(x1, x2, mu1 = 0, mu2 = 0, s11 = 10, s12 = 15, s22 = 10, rho = 0.5) {
-  term1 <- 1 / (2 * pi * sqrt(s11 * s22 * (1 - rho^2)))
-  term2 <- -1 / (2 * (1 - rho^2))
-  term3 <- (x1 - mu1)^2 / s11
-  term4 <- (x2 - mu2)^2 / s22
-  term5 <- -2 * rho * ((x1 - mu1) * (x2 - mu2)) / (sqrt(s11) * sqrt(s22))
-  term1 * exp(term2 * (term3 + term4 - term5))
-} 
-z <- outer(x1, x2, f) 
-library(shape)
-persp(x1, x2, z,
-  xlab = "", ylab = "", zlab = "",
-  col = drapecol(z, col = terrain.colors(20)),
-  border = NA, shade = 0.1, r = 50, d = 0.1, expand = 0.5,
-  theta = 120, phi = 15, ltheta = 90, lphi = 180,
-  ticktype = "detailed", nticks = 5
-)
-```
-
-```{python rastrigin-function, dev = ifelse(knitr::is_html_output(), 'svg', ifelse(knitr::is_latex_output(), 'pdf', 'png')), fig.width=4, fig.height=3, fig.cap="Python 绘制三维图形：Rastrigin 函数图形", out.width='75%', collapse=TRUE}
-from math import cos, pi
-import numpy as np
-from mpl_toolkits.mplot3d import Axes3D
-import matplotlib.pyplot as plt
-from matplotlib import cm
-
-from matplotlib import rcParams
-rcParams.update({'font.size': 18, 'text.usetex': True}) # 其它可配置选项见 rcParams.keys()
-plt.switch_backend('agg')
-
-xDomain = np.arange(-5.12, 5.12, .08)
-yDomain = np.arange(-5.12, 5.12, .08)
-
-X, Y = np.meshgrid(xDomain, yDomain)
-z = [20 + x**2 + y**2 - (10*(cos(2*pi*x) + cos(2*pi*y))) for x in xDomain for y in yDomain]
-Z = np.array(z).reshape(128,128)
-
-fig = plt.figure(figsize = (12,10))
-ax = fig.gca(projection='3d')
-surf = ax.plot_surface(X, Y, Z, cmap=cm.RdYlGn, linewidth=1, antialiased=False)
-
-ax.set_xlim(-5.12, 5.12)
-ax.set_ylim(-5.12, 5.12)
-ax.set_zlim(0, 80)
-# fig.colorbar(surf, aspect=30)
-plt.tight_layout()
-# plt.title(r'Rastrigin Function in Two Dimensions')
-plt.show()
-```
-
-::: {.flushright data-latex=""}
-黄湘云  
-北京, 北京
-:::
-
-[Plotly](https://github.com/plotly/plotly.py/blob/master/packages/python/plotly/plotly/express/_chart_types.py) 的图形库
-
-```{python python-plotly, fig.cap="Python 版的 plotly", eval=knitr::is_html_output()}
-import plotly.express as px
-
-px.scatter(
-    px.data.iris(),
-    x="sepal_width",
-    y="sepal_length",
-    color="species",
-    trendline="ols",
-    template="simple_white",
-    labels={
-        "sepal_length": "Sepal Length (cm)",
-        "sepal_width": "Sepal Width (cm)",
-        "species": "Species of Iris",
-    },
-    title="Edgar Anderson's Iris Data",
-    color_discrete_sequence=px.colors.qualitative.Set2
-)
-```
-```{python export-image, echo=FALSE, eval=!knitr::is_html_output()}
-import plotly.express as px
-fig = px.scatter(
-    px.data.iris(),
-    x="sepal_width",
-    y="sepal_length",
-    color="species",
-    trendline="ols",
-    template="simple_white",
-    labels={
-        "sepal_length": "Sepal Length (cm)",
-        "sepal_width": "Sepal Width (cm)",
-        "species": "Species of Iris",
-    },
-    title="Edgar Anderson's Iris Data",
-    color_discrete_sequence=px.colors.qualitative.Set2,
-)
-fig.write_image("iris.png", engine="kaleido")
-```
-```{r iris, echo=FALSE, eval=!knitr::is_html_output(), fig.cap="插入图片", out.width="75%"}
-knitr::include_graphics(path = "iris.png")
-```
-
-## 软件信息 {#session .unnumbered}
-\index{xfun}
-
-```{r}
-xfun::session_info(packages = c(
-  "knitr", "rmarkdown", "bookdown", "equatiomatic",
-  "data.table", "DT", "kableExtra", "reactable",
-  "patchwork", "plotly", "shiny",
-  "ggplot2", "dplyr", "tidyverse"
-), dependencies = FALSE)
-```
-
-
-柯尼斯堡七桥问题：在所有桥都只走一遍的情况下，如何才能把这个地方所有的桥都走遍？[^seven-bridges]欧拉将每一座桥抽象为一条线，桥所连接地区抽象为点。此处，用[tikz-network](https://ctan.org/pkg/tikz-network) 绘制网络图\@ref(fig:seven-bridges)。
-
-[^seven-bridges]: <https://en.wikipedia.org/wiki/Seven_Bridges_of_K%C3%B6nigsberg>
-
-
-```{r seven-bridges, engine="tikz", fig.cap="柯尼斯堡七桥问题", cache=TRUE, engine.opts=list(extra.preamble=c("\\usepackage[default]{sourcesanspro}", "\\usepackage{tikz-network}"))}
-\begin{tikzpicture}
-\Vertex[IdAsLabel, x=5, color=gray, size=1, fontsize=\large]{A}
-\Vertex[IdAsLabel, x=10, color=gray, size=1, fontsize=\large]{B}
-\Vertex[IdAsLabel, x=15, color=gray, size=1, fontsize=\large]{C}
-\Vertex[IdAsLabel, x=10, y=6, color=gray, size=1, fontsize=\large]{D}
-
-\Edge[label=2, bend=45, fontscale=2](A)(B)
-\Edge[label=6, bend=30, fontscale=2](A)(D)
-\Edge[label=3, bend=45, fontscale=2](B)(A)
-\Edge[label=5, bend=45, fontscale=2](B)(C)
-\Edge[label=4, bend=45, fontscale=2](C)(B)
-\Edge[label=7, bend=30, fontscale=2](D)(C)
-\Edge[label=1, fontscale=2](D)(B)
-\end{tikzpicture}
-```
-
-```{r google-map, fig.cap="Google 地图示例", fig.asp=1, out.width="75%"}
-library(RgoogleMaps)
-# 一组坐标的中心位置
-lat <- c(40.702147, 40.718217, 40.711614)
-lon <- c(-74.012318, -74.015794, -73.998284)
-center <- c(mean(lat), mean(lon))
-zoom <- min(MaxZoom(range(lat), range(lon)))
-# 矩形对角线的两个顶点
-bb <- qbbox(lat, lon)
-
-myMap <- GetMap(center, size = c(640, 640), zoom = zoom, type = "osm")
-PlotOnStaticMap(myMap,
-  lat = lat, lon = lon, pch = 20, cex = 10,
-  col = c("red", "blue", "green")
-)
-```
-
-```{r fontcm, fig.cap="fontcm 处理数学公式", fig.process=embed_math_fonts, dev=ifelse(knitr::is_html_output(), 'svg', ifelse(knitr::is_latex_output(), 'pdf', 'png')), fig.width=6, fig.height=3}
-library(fontcm)
-library(ggplot2)
-library(extrafont)
-library(patchwork)
-p <- ggplot(data = data.frame(x = c(1, 5), y = c(1, 5)), aes(x = x, y = y)) +
-  geom_point() +
-  labs(x = "Made with CM fonts", y = "Made with CM fonts", 
-       title = "Made with CM fonts")
-# 公式
-eq <- "italic(sum(frac(1, n*'!'), n==0, infinity) ==
-       lim(bgroup('(', 1 + frac(1, n), ')')^n, n %->% infinity))"
-# 默认字体
-p1 <- p + annotate("text",
-  x = 3, y = 3,
-  parse = TRUE, label = eq
-)
-# 使用 CM Roman 字体
-p2 <- p + annotate("text",
-  x = 3, y = 3,
-  parse = TRUE, label = eq, family = "CM Roman"
-) +
-  theme(
-    text = element_text(size = 10, family = "CM Roman"),
-    axis.title.x = element_text(face = "italic"),
-    axis.title.y = element_text(face = "bold")
-  )
-p1 + p2
 ```
 
 

@@ -24,16 +24,5 @@ bookdown::pdf_book:
   template: null
   keep_tex: yes
   dev: cairo_pdf
-  extra_dependencies:
-    subfig:
-     - lotdepth=2
-     - lofdepth=2
-    ctex:
-     - heading=true
-     - fontset=fandol
   pandoc_args: ["--top-level-division=chapter", "--lua-filter=sidebar.lua", "--wrap=none"]
   quote_footer: ["\\hspace*{\\fill} ", ""]
-bookdown::epub_book:
-  template: "default"
-  epub_version: "epub3"
-  stylesheet: style.css
