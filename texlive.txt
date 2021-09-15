@@ -45,6 +45,7 @@ ptex-base
 ptex-fonts
 preview
 rsfs
+smartdiagram
 sourcecodepro
 svn-prov
 tabu
